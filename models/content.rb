@@ -100,7 +100,7 @@ class Content
       content.uid = new_uid
       content.anon = false
       content.save
-      cache content
+      #cache content
     }
   end
 

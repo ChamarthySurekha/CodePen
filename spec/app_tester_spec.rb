@@ -2,7 +2,7 @@ require './spec/app_tester'
 require 'spec_helper'
 require 'json'
 require './models/user'
-require './models/user_twitter'
+require './models/user_github'
 require './spec/util_mongo'
 
 describe 'the fake app' do
@@ -62,7 +62,8 @@ describe 'the fake app' do
     it "should return the selected user" do
       clear_db
       app.send(:set, :sessions, false)
-      t = TwitterUser.new(:uid => 1, :nickname => 'timmy', :name => "tired dad"); t.save
+      t = GithubUser.new(:name => 'beaner')
+      t.save
       Sinatra::Sessionography.session['uid'] = t.uid
       get '/sessionator'
       JSON.parse(last_response.body)['user']['uid'].should == '1'

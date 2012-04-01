@@ -1,6 +1,6 @@
 require './models/content'
 require './models/slug'
-require './models/user_twitter'
+require './models/user_github'
 require 'spec_helper'
 
 describe Content do

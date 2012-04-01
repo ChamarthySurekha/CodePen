@@ -16,6 +16,9 @@ Spork.each_run do
   Dir.glob("./models/*.rb") do |filename|
     load filename
   end
+  Dir.glob("./services/*.rb") do |filename|
+    load filename
+  end
 end
 
 ENV['RACK_ENV'] = "test"

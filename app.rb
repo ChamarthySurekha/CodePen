@@ -48,7 +48,7 @@ class App < Sinatra::Base
   ###########
   # HOME
   ###########
-  
+
   get '/?' do
     @c_data = {}
     @c_data['auth_token'] = set_auth_token
@@ -93,7 +93,7 @@ class App < Sinatra::Base
     else
       #TODO: log these
       ap 'illigal access'
-      
+
       '{"success":false, "error":"illegal access."}'
     end
   end
@@ -264,6 +264,7 @@ class App < Sinatra::Base
   end
 
   get '/auth/github/callback/?' do
+    #TODO: validate referrer to be sure was from github
     user_hash = oauth_class.authorize(params[:code])
     set_session
     LoginService.new.login(@user, user_hash)

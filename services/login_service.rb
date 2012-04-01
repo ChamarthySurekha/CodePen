@@ -4,19 +4,22 @@ class LoginService
 
   def login(user, auth_info)
     if user.anon?
-      new_user = GithubUser.new(auth_info)
-      Content.copy_ownership(user, new_user.uid)
-      new_user
+      convert_anon_user(user, auth_info)
     else
       update_regular_user(user, auth_info)
     end
   end
 
+  def convert_anon_user(user, auth_info)
+    new_user = GithubUser.new(auth_info)
+    new_user.save
+    Content.copy_ownership(user, new_user.uid)
+    new_user
+  end
+
   def update_regular_user(user, auth_info)
-    if auth_info['nickname'] != user.nickname || auth_info['name'] != user.name
-      user.nickname = auth_info['nickname']
-      user.name = auth_info['name']
-      user.save
+    if auth_info['id'] == user.id
+      user.update_attributes!(auth_info)
       user
     end
   end

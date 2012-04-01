@@ -4,6 +4,10 @@ require_relative './user'
 class GithubUser < User
   include MongoMapper::Document
 
+  attr_accessible :uid, :location, :url, :company, :html_url, 
+    :email, :hireable, :name, :gravitar_url, :id, :login,
+    :public_gists, :token
+
   key :uid,           String
   key :location,      String
   key :url,           String
@@ -11,11 +15,12 @@ class GithubUser < User
   key :html_url,      String
   key :email,         String
   key :hireable,      Boolean
-  key :name,          String, :required => true
+  key :name,          String
   key :gravitar_url,  String
   key :id,            Integer
-  key :login,         String
+  key :login,         String, :required => true
   key :public_gists,  String
+  key :token,         String
 
   timestamps!
 
